@@ -23,4 +23,14 @@ public class InputPanel extends JPanel {
     public JButton getSubmitButton() {
         return submitButton;
     }
+
+    public String getInputText() {
+        return inputField.getText();
+    }
+
+    
+
+    public void clearInput() {
+        inputField.setText("");
+    }
 }

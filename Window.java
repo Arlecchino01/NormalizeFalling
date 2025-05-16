@@ -15,7 +15,7 @@ class MainFrame extends JFrame{
 
     public MainFrame(){
         setTitle("Testing");
-        setSize(1600, 800);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //인스턴스 생성

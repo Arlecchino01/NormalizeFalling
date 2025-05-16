@@ -4,12 +4,15 @@ import java.awt.*;
 public class InputOutputSection extends JPanel {
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
+    private Manager manager;
 
     public InputOutputSection(){
         setLayout(new GridBagLayout()); 
         GridBagConstraints gbc = new GridBagConstraints();
+
         inputPanel = new InputPanel();
         outputPanel = new OutputPanel();
+        manager = new Manager(outputPanel);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -19,6 +22,15 @@ public class InputOutputSection extends JPanel {
         gbc.gridy = 1;
         add(inputPanel,gbc);
 
+        // 버튼에 액션 붙이기
+        inputPanel.getSubmitButton().addActionListener(e -> {
+            String text = inputPanel.getInputText();
+            if (!text.isEmpty()) {
+                manager.handleInput(text);
+                inputPanel.clearInput();
+            }
+        });
+        
     }
     
 }
