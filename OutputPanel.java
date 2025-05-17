@@ -19,6 +19,7 @@ public class OutputPanel extends JPanel{
 
     public void showMessage(String message){
         textArea.append(message + "\n");
+        textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
 }
