@@ -4,7 +4,6 @@ import java.awt.*;
 public class InputOutputSection extends JPanel {
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
-    private Manager manager;
 
     public InputOutputSection(){
         setLayout(new GridBagLayout()); 
@@ -12,7 +11,6 @@ public class InputOutputSection extends JPanel {
 
         inputPanel = new InputPanel();
         outputPanel = new OutputPanel();
-        manager = new Manager(outputPanel);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -26,8 +24,7 @@ public class InputOutputSection extends JPanel {
         inputPanel.getSubmitButton().addActionListener(e -> {
             String text = inputPanel.getInputText();
             if (!text.isEmpty()) {
-                manager.handleInput(text);
-                inputPanel.clearInput();
+                
             }
         });
         

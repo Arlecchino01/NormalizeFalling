@@ -1,9 +1,5 @@
 public class Manager {
     private OutputPanel outputPanel;
-    private int step = 1;
-
-    private String name;
-    private int age;
 
     public Manager(OutputPanel outputPanel){
         this.outputPanel = outputPanel;

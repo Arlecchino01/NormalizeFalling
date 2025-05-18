@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class OutputPanel extends JPanel{
+public class OutputPanel extends JPanel implements OutputHandler{
     private JTextArea textArea;
 
     public OutputPanel(){
@@ -20,6 +20,11 @@ public class OutputPanel extends JPanel{
     public void showMessage(String message){
         textArea.append(message + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength());
+    }
+
+    @Override
+    public void show(String message){
+        textArea.append(message + "\n");
     }
 
 }

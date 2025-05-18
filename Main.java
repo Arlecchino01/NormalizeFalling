@@ -1,5 +1,10 @@
 public class Main {
     public static void main(String[] args) {
-        Window window1 = new Window();
+                
+        LogicEngine logic1 = new LogicEngine();
+
+        logic1.getInputEngine().handleInput("Testing");
+
+
     }
 }
