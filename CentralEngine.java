@@ -9,10 +9,12 @@ public class CentralEngine {
 
     public void onInput(String input){
         System.out.println("Central Engine accepted: '" + input + "'");
-        nextTest();
+        System.out.println("Now, Central will pass it to OutputEngine");
+        nextTest(input);
     }
 
-    public void nextTest(){
+    public void nextTest(String input){
         System.out.println("nextTest is activated");
+        outputEngine.showMessage(input);
     }
 }

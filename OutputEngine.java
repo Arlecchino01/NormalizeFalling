@@ -1,15 +1,16 @@
 public class OutputEngine {
+    private CentralEngine central;
     private OutputHandler handler;
 
-    public OutputEngine(){
-
+    public void setCentralEngine(CentralEngine central){
+        this.central = central;
     }
 
-    public void setOutputHandler(OutputHandler outputHandler){
-        this.handler = outputHandler;
+    public void setOutputHandler(OutputHandler handler){
+        this.handler = handler;
     }
 
     public void showMessage(String msg){
-        handler.show(msg);
+        handler.show("This is from OutputEngine:"+ msg);
     }
 }
