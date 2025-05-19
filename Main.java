@@ -10,6 +10,8 @@ public class Main {
                 break;
 
             case 2:
+                System.out.println("SwingAppUI in progress");
+                SwingAppUI swingAppUI = new SwingAppUI();
                 break;
         
             default:

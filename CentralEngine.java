@@ -14,7 +14,6 @@ public class CentralEngine {
     }
 
     public void nextTest(String input){
-        System.out.println("nextTest is activated");
         outputEngine.showMessage(input);
     }
 }

@@ -13,8 +13,8 @@ public class LogicEngine {
         this.outputEngine.setOutputHandler(outputHandler);
         //각 인/아웃풋 엔진에 핸들러를 연결
         //이 핸들러들은 각각
-        //콘솔 모드: ConsoleInput 
-        //Swing모드: InputPanel
+        //콘솔 모드: ConsoleInput (implements Input/OutputHandler)
+        //Swing모드: InputPanel (implements Input/OutputHandler)
         //에 연결된다.
 
 

@@ -4,6 +4,7 @@ import java.awt.*;
 public class InputPanel extends JPanel implements InputHandler{
     private JTextField inputField;
     private JButton submitButton;
+    private InputEngine inputEngine;
 
     public InputPanel(){
         setLayout(new FlowLayout());
@@ -34,8 +35,12 @@ public class InputPanel extends JPanel implements InputHandler{
         inputField.setText("");
     }
 
+    public void setInputEngine(InputEngine inputEngine){
+        this.inputEngine = inputEngine;
+    }
+
     @Override
     public void handle(String input){
-        
+        inputEngine.handleInput(input);
     }
 }

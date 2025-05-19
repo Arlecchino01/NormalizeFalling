@@ -5,8 +5,13 @@ public class SwingAppUI implements ApplicationUI{
     private Window window;
     
     public SwingAppUI(){
-        outputPanel = new OutputPanel();
-        inputPanel = new InputPanel();
+        InputPanel inputPanel = new InputPanel();
+        OutputHandler outputPanel = new OutputPanel();
+
+        LogicEngine engine = new LogicEngine(inputPanel, outputPanel);
+        inputPanel.setInputEngine(engine.getInputEngine());
+
+
         window = new Window();
 
         

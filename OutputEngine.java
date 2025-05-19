@@ -11,6 +11,6 @@ public class OutputEngine {
     }
 
     public void showMessage(String msg){
-        handler.show("This is from OutputEngine:"+ msg);
+        handler.show("OutputEngine Activated with: "+ msg);
     }
 }
