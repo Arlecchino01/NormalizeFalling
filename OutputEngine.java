@@ -1,8 +1,12 @@
 public class OutputEngine {
     private OutputHandler handler;
 
-    public OutputEngine(OutputHandler handler){
-        this.handler = handler;
+    public OutputEngine(){
+
+    }
+
+    public void setOutputHandler(OutputHandler outputHandler){
+        this.handler = outputHandler;
     }
 
     public void showMessage(String msg){

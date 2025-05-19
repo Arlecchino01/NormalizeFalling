@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class InputPanel extends JPanel {
+public class InputPanel extends JPanel implements InputHandler{
     private JTextField inputField;
     private JButton submitButton;
 
@@ -32,5 +32,10 @@ public class InputPanel extends JPanel {
 
     public void clearInput() {
         inputField.setText("");
+    }
+
+    @Override
+    public void handle(String input){
+        
     }
 }
