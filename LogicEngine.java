@@ -28,5 +28,9 @@ public class LogicEngine {
         return inputEngine;
     }
 
+    public OutputEngine getOutputEngine(){
+        return outputEngine;
+    }
+
 
 }

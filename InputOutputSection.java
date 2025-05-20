@@ -5,12 +5,12 @@ public class InputOutputSection extends JPanel {
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
 
-    public InputOutputSection(){
+    public InputOutputSection(InputPanel inputPanel, OutputPanel outputPanel){
         setLayout(new GridBagLayout()); 
         GridBagConstraints gbc = new GridBagConstraints();
 
-        inputPanel = new InputPanel();
-        outputPanel = new OutputPanel();
+        this.inputPanel = inputPanel;
+        this.outputPanel = outputPanel;
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -24,7 +24,8 @@ public class InputOutputSection extends JPanel {
         inputPanel.getSubmitButton().addActionListener(e -> {
             String text = inputPanel.getInputText();
             if (!text.isEmpty()) {
-                
+                outputPanel.showMessage(text);
+                inputPanel.clearInput();
             }
         });
         
