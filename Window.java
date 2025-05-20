@@ -21,23 +21,22 @@ class MaineFrame extends JFrame{
 
     public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel){
         setTitle("Testing");
-        setSize(1900, 700);
+        setSize(1500, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //인스턴스 생성
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel1 = new JPanel();
         mainPanel2 = new JPanel();
         inOutSection = new InputOutputSection(inputPanel, outputPanel);
 
         this.gamePanel = new GamePanel(inOutSection);
 
 
-        //mainPanel1.add(inOutSection);
+        
         mainPanel2.add(gamePanel);
    
-        //mainPanel.add(mainPanel1, "main1");
+        
         mainPanel.add(mainPanel2, "main2");
 
         add(mainPanel);
@@ -58,15 +57,15 @@ class GamePanel extends JPanel{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridy = 0; // 한 줄짜리이므로 y좌표는 모두 0
-        gbc.weighty = 1.0; 
+        gbc.weighty = 1.0;
 
-         // 왼쪽 패널 (30%)
+        // 왼쪽 패널 (30%)
         
         inout.setBackground(Color.BLUE);
         gbc.gridx = 0;
         gamePanel.add(inout, gbc);
 
-         // 가운데 패널 (40%)
+        // 가운데 패널 (40%)
         
         Board a = new Board(5);
         BoardPanel board = new BoardPanel(a);
@@ -106,7 +105,7 @@ class BoardPanel extends JPanel {
         computeTilePositions(); // ← 여기서 연결 처리
 
         // 테스트: 첫 번째 변의 첫 번째 타일 위에 말 생성
-        Tile startTile = board.getDiagonalsFromCenter().get(0).getTiles().get(3);
+        Tile startTile = board.getDiagonalsFromCenter().get(0).getTiles().get(1);
         testPiece = new Piece(startTile);
     }
 

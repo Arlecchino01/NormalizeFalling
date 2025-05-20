@@ -24,11 +24,11 @@ public class InputOutputSection extends JPanel {
         inputPanel.getSubmitButton().addActionListener(e -> {
             String text = inputPanel.getInputText();
             if (!text.isEmpty()) {
-                outputPanel.showMessage(text);
+                inputPanel.handle(text);
+                //outputPanel.showMessage(text);
                 inputPanel.clearInput();
             }
         });
-        
     }
     
 }

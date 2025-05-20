@@ -18,13 +18,15 @@ public class OutputPanel extends JPanel implements OutputHandler{
     }
 
     public void showMessage(String message){
-        textArea.append(message + "\n");
+        textArea.append("heyhey" + message + "\n");
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
     @Override
     public void show(String message){
         textArea.append(message + "\n");
+        textArea.setCaretPosition(textArea.getDocument().getLength());
+
     }
 
 }

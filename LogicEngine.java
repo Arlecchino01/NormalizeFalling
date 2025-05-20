@@ -6,7 +6,6 @@ public class LogicEngine {
     public LogicEngine(InputHandler inputHandler, OutputHandler outputHandler){
         this.inputEngine = new InputEngine();
         this.outputEngine = new OutputEngine();
-        this.centralEngine = new CentralEngine(inputEngine, outputEngine);
         //엔진들을 생성
 
         this.inputEngine.setInputHandler(inputHandler);
@@ -17,10 +16,12 @@ public class LogicEngine {
         //Swing모드: InputPanel (implements Input/OutputHandler)
         //에 연결된다.
 
-
+        this.centralEngine = new CentralEngine(inputEngine, outputEngine);
+        
         
         this.inputEngine.setCentralEngine(centralEngine);
         this.outputEngine.setCentralEngine(centralEngine);
+        centralEngine.initializeGame();
         //  인/아웃풋 엔진들에 중앙엔진을 연결
     }
 

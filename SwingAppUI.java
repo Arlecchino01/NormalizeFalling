@@ -17,6 +17,19 @@ public class SwingAppUI implements ApplicationUI{
 
 
         window = new Window(inputPanel, outputPanel);
+
+        //Testing
+        //1. App레벨에서 inputPanel에 스트링값 주기: 작동
+        //inputPanel.handle("hi");
+
+        //2. 로직엔진에서 아웃풋엔진에게 직접 명령하기: 작동
+        //engine.getOutputEngine().showMessage("hi2");
+
+
+
+
+
+
         //UI생성후, UI에 패널, 로직엔진을 연결해야 한다.
         //아니다! 로직엔진을 연결할 필요 없다. 핸들러만 연결하면 된다!
 
