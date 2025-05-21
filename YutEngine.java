@@ -1,29 +1,26 @@
 import java.util.*;
 
 public class YutEngine {
-    private InputEngine inputEngine;
-    private OutputEngine outputEngine;
-    private Callback callback;
+    private CentralEngine central;
 
     int switchnum = 0;
     int PlayerNum;
     List<Player> players;
 
-
-    public YutEngine(InputEngine inputEngine, OutputEngine outputEngine){
-        this.inputEngine = inputEngine;
-        this.outputEngine = outputEngine;
-    }
+    
 
     public void launch(){
         if (switchnum == 0) {
-            outputEngine.showMessage("게임을 시작합니다");
+
+
+            central.sendStringToOutputEngine("Yut Game Start");
 
         }
         
         switch (switchnum) {
             case 0:
                 getPlayers();
+                
                 break;
             case 1:
                 setGame();
@@ -34,12 +31,33 @@ public class YutEngine {
     }
 
     public void getPlayers(){
-        outputEngine.showMessage("플레이어의 수를 입력하세요");
-        //여기서 뭘 호출? or 실행하고 입력 대기
+        central.sendStringToOutputEngine("플레이어 수를 입력하세요");
 
+        central.setYutCallBack(new CentralEngine.YutCallback() {
+            @Override
+            public void onInput(CentralEngine centralEngine){
+                central.sendStringToOutputEngine("I got: ");
+                central.sendStringToOutputEngine(central.getString());
+                switchnum = 1;
+            }
+        });
     }
 
     public void setGame(){
-        outputEngine.showMessage("보드의 변의 수를 입력하세요:");
+        central.setYutCallBack(new CentralEngine.YutCallback() {
+            @Override
+            public void onInput(CentralEngine centralEngine){
+                central.sendStringToOutputEngine("2nd");
+            }
+        });
     }
+
+    public void setCentralEngine(CentralEngine centralEngine){
+        this.central = centralEngine;
+    }
+
+
+
+
+
 }
