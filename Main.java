@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
 
-        int key = 2;
+        int key = 1;
 
         switch (key) {
             case 1:
