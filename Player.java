@@ -5,6 +5,7 @@ public class Player {
     boolean isFinished;
 
     public Player(){
-        
+        this.piece1 = new Piece(null);
+        this.piece2 = new Piece(null);
     }
 }
