@@ -11,6 +11,6 @@ public class OutputEngine {
     }
 
     public void showMessage(String msg){
-        handler.show("OutputEngine:"+ msg);
+        handler.show(msg);
     }
 }

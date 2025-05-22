@@ -11,7 +11,7 @@ public class InputEngine {
     }
 
     public void handleInput(String input){
-        central.sendStringToOutputEngine("dd");
+        central.handleInputFromInputEngine(input);
         central.executeYut();
     }
 

@@ -20,6 +20,8 @@ public class InputOutputSection extends JPanel {
         gbc.gridy = 1;
         add(inputPanel,gbc);
 
+        outputPanel.setPreferredSize(new Dimension(300,400));
+
         // 버튼에 액션 붙이기
         inputPanel.getSubmitButton().addActionListener(e -> {
             String text = inputPanel.getInputText();

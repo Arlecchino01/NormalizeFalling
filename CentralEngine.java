@@ -19,18 +19,11 @@ public class CentralEngine {
         this.callback = null;
     }
 
-    public void onInput(String input){
-        System.out.println("Central Engine accepted: '" + input + "'");
-        System.out.println("Now, Central will pass it to OutputEngine");
-        nextTest(input);
-    }
-
-    public void nextTest(String input){
-        outputEngine.showMessage(input);
+    public void handleInputFromInputEngine(String input){
+        this.handlingString = input;
     }
 
     
-
     public void sendStringToOutputEngine(String string){
         outputEngine.showMessage(string);
     }
