@@ -91,7 +91,7 @@ public class YutEngine {
 
     public void addPlayers(CentralEngine centralEngine, Integer index, Integer pNum){
         if (index >= pNum) {
-            central.sendStringToOutputEngine("모든 입력이 완료되었습니다.");
+            central.sendStringToOutputEngine("모든 플레이어 입력이 완료되었습니다.");
             setSwitchNum(1);
             launch();
             return;
@@ -104,7 +104,7 @@ public class YutEngine {
             public void onInput(CentralEngine cAdd1){
                 //생성자로 플레이어 생성 + 리스트에 플레이어 추가하는 거 구현
                 Player p = new Player(central.getString());
-                central.sendStringToOutputEngine("추가 완료.");
+                central.sendStringToOutputEngine((index + 1)+ "번 플레이어 \""+p.getName() + "\" 추가 완료.");
                 addPlayers(cAdd1, index+1, pNum);
             }
         });
