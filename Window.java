@@ -21,7 +21,7 @@ class MaineFrame extends JFrame{
 
     public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel){
         setTitle("Testing");
-        setSize(1500, 700);
+        setSize(1500, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //인스턴스 생성

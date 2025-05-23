@@ -4,8 +4,7 @@ public class Player {
     Piece piece2;
     boolean isFinished;
 
-    public Player(){
-        this.piece1 = new Piece(null);
-        this.piece2 = new Piece(null);
+    public Player(String name){
+        this.name = name;
     }
 }
