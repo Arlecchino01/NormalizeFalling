@@ -8,7 +8,6 @@ public class Window {
     public Window(InputPanel inputPanel, OutputPanel outputPanel){        
         MaineFrame a = new MaineFrame(inputPanel, outputPanel);
     }
-    
 }
 
 class MaineFrame extends JFrame{
@@ -67,7 +66,7 @@ class GamePanel extends JPanel{
 
         // 가운데 패널 (40%)
         
-        Board a = new Board(5);
+        Board a = new Board(4);
         BoardPanel board = new BoardPanel(a);
         gbc.gridx = 1;
         gamePanel.add(board, gbc);
@@ -87,7 +86,7 @@ class GamePanel extends JPanel{
 }
 
 class BoardPanel extends JPanel {
-    private int N = 5; // N각형
+    private int N = 4; // N각형
     private final int RADIUS = 250;
     private final int TILE_SIZE = 16;
     private final int CENTER_X = 400;

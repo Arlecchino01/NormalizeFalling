@@ -20,13 +20,12 @@ public class YutEngine {
             case 0:
                 //setting game
                 //윷 던지기 버튼 disabled
-                central.sendStringToOutputEngine("==== 윷놀이 Game Start ====");
+                central.sendStringToOutputEngine("==== 윷놀이 Player Setting ====");
                 getPlayers();
                 break;
             case 1:
                 //게임 세팅
-                //윷 던지기 
-                central.sendStringToOutputEngine("==== 턴 시작! ====");
+                central.sendStringToOutputEngine("==== 윷놀이 Game Setting ====");
                 setGame();
                 break;
             case 2:
@@ -62,7 +61,6 @@ public class YutEngine {
         });
     }
     
-    
     public void initializeCallback(){
         central.setYutCallBack(new CentralEngine.YutCallback() {
             @Override
@@ -92,6 +90,9 @@ public class YutEngine {
     public void addPlayers(CentralEngine centralEngine, Integer index, Integer pNum){
         if (index >= pNum) {
             central.sendStringToOutputEngine("모든 플레이어 입력이 완료되었습니다.");
+            for (int i = 0; i < index; i++){
+                central.sendStringToOutputEngine(players.get(i).getName());
+            }
             setSwitchNum(1);
             launch();
             return;
@@ -104,8 +105,21 @@ public class YutEngine {
             public void onInput(CentralEngine cAdd1){
                 //생성자로 플레이어 생성 + 리스트에 플레이어 추가하는 거 구현
                 Player p = new Player(central.getString());
+                players.add(p);
                 central.sendStringToOutputEngine((index + 1)+ "번 플레이어 \""+p.getName() + "\" 추가 완료.");
                 addPlayers(cAdd1, index+1, pNum);
+            }
+        });
+    }
+
+    public void setGame(){
+        central.setYutCallBack(new CentralEngine.YutCallback() {
+            @Override
+            public void onInput(CentralEngine c1){
+                central.sendStringToOutputEngine("변의 수를 입력하세요");
+                central.sendStringToOutputEngine(central.getString());
+                setSwitchNum(2);
+                launch();
             }
         });
     }
@@ -123,19 +137,6 @@ public class YutEngine {
                     central.sendStringToOutputEngine("정수를 입력하세요.");
                 }
                 
-            }
-        });
-    }
-
-
-    public void setGame(){
-        central.setYutCallBack(new CentralEngine.YutCallback() {
-            @Override
-            public void onInput(CentralEngine centralEngine){
-                central.sendStringToOutputEngine("2nd");
-                central.sendStringToOutputEngine(central.getString());
-                setSwitchNum(2);
-                launch();
             }
         });
     }
