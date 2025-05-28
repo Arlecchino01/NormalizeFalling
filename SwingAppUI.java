@@ -2,21 +2,41 @@ public class SwingAppUI implements ApplicationUI{
     //로직단계
     //엔진을 모두 생성, 연결하는 클래스
     //UI구성은 Window.java의 역할
-    private LogicEngine engine;
+    private LogicEngine logicEngine;
+    private UI_Connection_Interface hub;
     private OutputPanel outputPanel;
     private InputPanel inputPanel;
     private Window window;
     
     public SwingAppUI(){
-        InputPanel inputPanel = new InputPanel(); //<--핸들러
-        OutputPanel outputPanel = new OutputPanel();
+        //inputPanel = new InputPanel(); //<--핸들러
+        //outputPanel = new OutputPanel();
 
-        LogicEngine engine = new LogicEngine(inputPanel, outputPanel);
-        inputPanel.setInputEngine(engine.getInputEngine());
+
+        //허브 생성
+        hub = new UI_Connection_Interface();
+
+        //로직 생성 + 허브 연결
+        logicEngine = new LogicEngine();
+        hub.setLogicEngine(logicEngine);
+
+        //윈도우 생성 + 허브 연결
+        window = new Window();
+        hub.setUI(window);
+
+        hub.connectUI();
+        //inputPanel.setInputEngine(logicEngine.getInputEngine());
         //패널들을 만들고 로직엔진에만 연결한 상태
+        
+        hub.launchYut();
 
 
-        window = new Window(inputPanel, outputPanel);
+        //window = new Window(inputPanel, outputPanel);
+        //window에서 YutEngine까지 접근해서 .setBoardPanel을 해야 하는 상태
+        //예상 코드
+        //window.setLogicEngine(logicEngine);
+        //BoardPanel에서) this.logicEngine.centralEngine.yutEngine.setBoardPanel(this);
+        //window.setLogicEngine(logicEngine);
 
         //Testing
         //1. App레벨에서 inputPanel에 스트링값 주기: 작동

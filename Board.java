@@ -7,11 +7,13 @@ public class Board {
     List<BoardEdge> diagonalsToCenter = new ArrayList<>();
     List<BoardEdge> diagonalsFromCenter = new ArrayList<>();
     int indexFromCenterTo;
+    Integer sideNum;
 
     public Board(int sides) {
         origin = createTile();
         Tile prev = origin;
         origin.isOrigin = true;
+        this.sideNum = sides;
         
 
         for (int i = 0; i < sides-1; i++) {
@@ -67,5 +69,9 @@ public class Board {
 
     public List<BoardEdge> getDiagonalsFromCenter() {
         return diagonalsFromCenter;
+    }
+
+    public int getSideNum(){
+        return sideNum;
     }
 }

@@ -34,10 +34,14 @@ public class CentralEngine {
     //============= Communication with YutEngine =============
 
     public void initializeGame(){
-        sendStringToOutputEngine("환영합니다");
+        //sendStringToOutputEngine("YutEngine을 구동합니다.");
         yutEngine = new YutEngine();
         yutEngine.setCentralEngine(this);
-        yutEngine.launch();        
+        //yutEngine.launch();
+    }
+
+    public void launchYut(){
+        yutEngine.launch();
     }
 
     public void setYutCallBack(YutCallback callback){
@@ -54,7 +58,9 @@ public class CentralEngine {
         }
     }
 
-    
+    public YutEngine getYutEngine(){
+        return yutEngine;
+    }
 
 
 

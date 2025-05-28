@@ -5,9 +5,21 @@ public class YutEngine {
 
     private String testingStr;
     
+    //launch()에서 스위치 조작용 변수
     private int switchnum;
+
+    //플레이어 정보 저장 변수
     private int PlayerNum;
-    List<Player> players;
+    private List<Player> players;
+
+    //보드 전용 변수
+    private int sideNum;
+    private Board board;
+
+    private UI_Interface BoardUi;
+    
+
+
 
     public YutEngine(){
         switchnum = 0;
@@ -77,6 +89,10 @@ public class YutEngine {
             public void onInput(CentralEngine centralEngine){
                 try{
                     int tempInt = Integer.parseInt(central.getString());
+                    if(tempInt <= 1){
+                        central.sendStringToOutputEngine("2 이상의 수를 입력하세요");
+                        return;
+                    }
                     central.sendStringToOutputEngine("플레이어 수: " + tempInt);
                     PlayerNum = tempInt;
                     addPlayers(centralEngine, 0, PlayerNum);
@@ -113,15 +129,54 @@ public class YutEngine {
     }
 
     public void setGame(){
+        central.sendStringToOutputEngine("변의 수를 입력하세요");
+
         central.setYutCallBack(new CentralEngine.YutCallback() {
             @Override
             public void onInput(CentralEngine c1){
-                central.sendStringToOutputEngine("변의 수를 입력하세요");
-                central.sendStringToOutputEngine(central.getString());
-                setSwitchNum(2);
-                launch();
+                try{
+                    int tempInt = Integer.parseInt(central.getString());
+                    if(tempInt <= 2){
+                        central.sendStringToOutputEngine("3 이상의 수를 입력하세요");
+                        return;
+                    }
+                    central.sendStringToOutputEngine("변의 수: " + tempInt);
+                    sideNum = tempInt;
+                    drawBoard(c1, sideNum);
+                    
+                } catch (NumberFormatException e){
+                    central.sendStringToOutputEngine("정수를 입력하세요.");
+                }
+                
+                
+                
             }
         });
+    }
+
+    public void drawBoard(CentralEngine centralEngine, Integer sideNum){
+        //보드의 접근 경로를 알아야 한다.
+
+        this.board = new Board(sideNum);
+        //여기서 직접 보드ui를 업데이트 하는 게 아니다. 센트럴에게 요청을 하고, 센트럴이 로직에게..
+        //결국 연결하는 선은 있어야 한다. 프로그램 내에 보드가 2개 이상 있을 수도 있는데,
+        //어느 보드의 ui를 업데이트 하는지는 알아야 할 거 아니냐.
+        //특정 보드의 ui와 지금 이 함수는 연결되어야 하는 게 맞다.
+        //연결의 방식만 조금 고민하면 된다.
+        //지금 로직이 ui를 모른다. LogicEngine은 Window를 모른다.
+        //inputEngine, OutputEngine에게 ui쪽 핸들러를 연결하기 위해 inputPanel, outputPanel만 알고 있다.
+        //그렇다면 같은 방식으로 해야 하나? 아니다. 이번엔 반대다.
+        //로직에서 보드 객체를 만들고, 이에 따라서 ui가 바뀌어야 한다.
+        //YutEngine에서 update인터페이스 메소드를 사용할 수 있어야 한다.
+        //
+
+        
+        //BoardUi.
+        central.sendStringToOutputEngine("됐다 여기까지");
+        setSwitchNum(2);
+        launch();
+
+
     }
 
     public void setPieces(){
@@ -151,6 +206,8 @@ public class YutEngine {
         this.switchnum = number;
     }
 
-    
+    public Board getBoard(){
+        return board;
+    }
     
 }

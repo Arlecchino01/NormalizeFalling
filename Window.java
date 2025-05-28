@@ -1,12 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.util.List; 
+import java.util.List;
 
 public class Window {
+    private InputPanel inputPanel;
+    private OutputPanel outputPanel;
+    private BoardPanel boardPanel;
+    
+    public Window(){
+        inputPanel = new InputPanel();
+        outputPanel = new OutputPanel();
 
-    public Window(InputPanel inputPanel, OutputPanel outputPanel){        
         MaineFrame a = new MaineFrame(inputPanel, outputPanel);
+    }
+
+    public InputPanel getInputPanel(){
+        return inputPanel;
+    }
+
+    public OutputPanel getoOutputPanel(){
+        return outputPanel;
     }
 }
 
@@ -47,9 +61,12 @@ class MaineFrame extends JFrame{
 
 
 class GamePanel extends JPanel{
+    
 
     JPanel gamePanel;
     InputOutputSection inout;
+
+
     public GamePanel(InputOutputSection inout){
         this.inout = inout;
         gamePanel = new JPanel(new GridBagLayout());
@@ -64,12 +81,13 @@ class GamePanel extends JPanel{
         gbc.gridx = 0;
         gamePanel.add(inout, gbc);
 
-        // 가운데 패널 (40%)
+        // 가운데 패널 (40%)    
         
-        Board a = new Board(4);
-        BoardPanel board = new BoardPanel(a);
+        Board a = new Board(6);
+        BoardPanel boardPanel = new BoardPanel(a);
+        
         gbc.gridx = 1;
-        gamePanel.add(board, gbc);
+        gamePanel.add(boardPanel, gbc);
 
         // 오른쪽 패널 (30%)
         JPanel rightPanel = new JPanel();
@@ -77,30 +95,44 @@ class GamePanel extends JPanel{
         gbc.gridx = 2;
         gamePanel.add(rightPanel, gbc);
         inout.setPreferredSize(new Dimension(400, 900));
-        board.setPreferredSize(new Dimension(800, 900));
+        boardPanel.setPreferredSize(new Dimension(800, 900));
         rightPanel.setPreferredSize(new Dimension(300, 900));
         
         add(gamePanel);
         
-    }        
+    }
+
+    
 }
 
-class BoardPanel extends JPanel {
-    private int N = 4; // N각형
+class BoardPanel extends JPanel implements UI_Interface{
+    private int N = 6; // N각형
     private final int RADIUS = 250;
     private final int TILE_SIZE = 16;
     private final int CENTER_X = 400;
     private final int CENTER_Y = 400;
-
     //======================================
-    
 
     private Board board;
     private Map<Tile, Point> tilePointMap = new HashMap<>();
     private Piece testPiece; // 테스트용 말
 
+    @Override
+    public void setBoard(Board board){
+        this.board = board;
+        repaint();
+    }
+
     public BoardPanel(Board board) {
         this.board = board;
+    }
+
+    
+
+    public void initializeBoardPanel(){
+        
+        
+        N = board.getSideNum();
         computeTilePositions(); // ← 여기서 연결 처리
 
         // 테스트: 첫 번째 변의 첫 번째 타일 위에 말 생성
