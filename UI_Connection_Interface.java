@@ -75,10 +75,7 @@ public class UI_Connection_Interface {
  
 
 
-    //입출력 패널(핸들러)에 엔진을 연결히야 함.
-    public void setInputHandler(InputHandler inputHandler){
-        
-    }
+    
 
     public void launchYut(){
         centralEngine.launchYut();
