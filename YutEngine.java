@@ -16,7 +16,8 @@ public class YutEngine {
     private int sideNum;
     private Board board;
 
-    private UI_Interface BoardUi;
+    private Board_Interface BoardUi;
+    private PlayerPanel_Interface playerPanel;
     
 
 
@@ -122,6 +123,7 @@ public class YutEngine {
                 //생성자로 플레이어 생성 + 리스트에 플레이어 추가하는 거 구현
                 Player p = new Player(central.getString());
                 players.add(p);
+                playerPanel.updatePlayerPanel(players);
                 central.sendStringToOutputEngine((index + 1)+ "번 플레이어 \""+p.getName() + "\" 추가 완료.");
                 addPlayers(cAdd1, index+1, pNum);
             }
@@ -158,6 +160,10 @@ public class YutEngine {
         //보드의 접근 경로를 알아야 한다.
 
         this.board = new Board(sideNum);
+        BoardUi.setBoard(board);    
+        //BoardUI(=BoardPanel)이 board를 자신의 this.board로 가지게 되었다.
+        //이제 
+
         //여기서 직접 보드ui를 업데이트 하는 게 아니다. 센트럴에게 요청을 하고, 센트럴이 로직에게..
         //결국 연결하는 선은 있어야 한다. 프로그램 내에 보드가 2개 이상 있을 수도 있는데,
         //어느 보드의 ui를 업데이트 하는지는 알아야 할 거 아니냐.
@@ -172,8 +178,7 @@ public class YutEngine {
 
         
         //BoardUi.
-        central.sendStringToOutputEngine("됐다 여기까지");
-        setSwitchNum(2);
+        central.sendStringToOutputEngine("게임보드가 생성되었습니다.");
         launch();
 
 
@@ -210,4 +215,11 @@ public class YutEngine {
         return board;
     }
     
+    public void setBoardUI(Board_Interface BoardUI){
+        this.BoardUi = BoardUI;
+    }
+
+    public void setPlayerPanel(PlayerPanel_Interface playerPanel){
+        this.playerPanel = playerPanel;
+    }
 }

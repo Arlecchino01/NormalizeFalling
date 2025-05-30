@@ -7,12 +7,16 @@ public class Window {
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
     private BoardPanel boardPanel;
+    private PlayerPanel playerPanel;
     
     public Window(){
         inputPanel = new InputPanel();
         outputPanel = new OutputPanel();
+        Board nullboard = new Board(4);
+        boardPanel = new BoardPanel(nullboard);
+        playerPanel = new PlayerPanel();
 
-        MaineFrame a = new MaineFrame(inputPanel, outputPanel);
+        MaineFrame a = new MaineFrame(inputPanel, outputPanel, boardPanel, playerPanel);
     }
 
     public InputPanel getInputPanel(){
@@ -21,6 +25,14 @@ public class Window {
 
     public OutputPanel getoOutputPanel(){
         return outputPanel;
+    }
+
+    public BoardPanel getBoardPanel(){
+        return boardPanel;
+    }
+
+    public PlayerPanel getPlayerPanel(){
+        return playerPanel;
     }
 }
 
@@ -32,9 +44,9 @@ class MaineFrame extends JFrame{
     private JPanel mainPanel2;
     private InputOutputSection inOutSection;
 
-    public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel){
+    public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel, BoardPanel boardPanel, PlayerPanel playerPanel){
         setTitle("Testing");
-        setSize(1500, 800);
+        setSize(1600, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //인스턴스 생성
@@ -43,7 +55,7 @@ class MaineFrame extends JFrame{
         mainPanel2 = new JPanel();
         inOutSection = new InputOutputSection(inputPanel, outputPanel);
 
-        this.gamePanel = new GamePanel(inOutSection);
+        this.gamePanel = new GamePanel(inOutSection, boardPanel, playerPanel);
 
 
         
@@ -67,7 +79,7 @@ class GamePanel extends JPanel{
     InputOutputSection inout;
 
 
-    public GamePanel(InputOutputSection inout){
+    public GamePanel(InputOutputSection inout, BoardPanel boardPanel, PlayerPanel playerPanel){
         this.inout = inout;
         gamePanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -77,26 +89,26 @@ class GamePanel extends JPanel{
 
         // 왼쪽 패널 (30%)
         
-        inout.setBackground(Color.BLUE);
+        inout.setBackground(Color.BLACK);
         gbc.gridx = 0;
         gamePanel.add(inout, gbc);
 
         // 가운데 패널 (40%)    
         
-        Board a = new Board(6);
-        BoardPanel boardPanel = new BoardPanel(a);
+        //Board a = new Board(3);
+        //boardPanel = new BoardPanel(a);
         
         gbc.gridx = 1;
         gamePanel.add(boardPanel, gbc);
 
         // 오른쪽 패널 (30%)
-        JPanel rightPanel = new JPanel();
-        rightPanel.setBackground(Color.RED);
+        //JPanel rightPanel = new JPanel();
+        //rightPanel.setBackground(Color.RED);
         gbc.gridx = 2;
-        gamePanel.add(rightPanel, gbc);
+        gamePanel.add(playerPanel, gbc);
         inout.setPreferredSize(new Dimension(400, 900));
         boardPanel.setPreferredSize(new Dimension(800, 900));
-        rightPanel.setPreferredSize(new Dimension(300, 900));
+        playerPanel.setPreferredSize(new Dimension(300, 900));
         
         add(gamePanel);
         
@@ -105,8 +117,8 @@ class GamePanel extends JPanel{
     
 }
 
-class BoardPanel extends JPanel implements UI_Interface{
-    private int N = 6; // N각형
+class BoardPanel extends JPanel implements Board_Interface{
+    private int N; // N각형
     private final int RADIUS = 250;
     private final int TILE_SIZE = 16;
     private final int CENTER_X = 400;
@@ -120,7 +132,11 @@ class BoardPanel extends JPanel implements UI_Interface{
     @Override
     public void setBoard(Board board){
         this.board = board;
-        repaint();
+        this.N = board.getSideNum();
+        Tile startTile = board.getDiagonalsFromCenter().get(0).getTiles().get(1);
+        testPiece = new Piece(startTile);
+        SwingUtilities.invokeLater(() -> repaint());
+        //computeTilePositions(); // ← 여기서 연결 처리
     }
 
     public BoardPanel(Board board) {
@@ -225,6 +241,7 @@ class BoardPanel extends JPanel implements UI_Interface{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
