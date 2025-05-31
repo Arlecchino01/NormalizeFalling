@@ -133,7 +133,7 @@ class BoardPanel extends JPanel implements Board_Interface{
     public void setBoard(Board board){
         this.board = board;
         this.N = board.getSideNum();
-        Tile startTile = board.getDiagonalsFromCenter().get(0).getTiles().get(1);
+        Tile startTile = board.getDiagonalsFromCenter().get(1).getTiles().get(1);
         testPiece = new Piece(startTile);
         SwingUtilities.invokeLater(() -> repaint());
         //computeTilePositions(); // ← 여기서 연결 처리

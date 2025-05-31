@@ -9,7 +9,7 @@ public class UI_Connection_Interface {
     private Window ui;
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
-    private BoardPanel boardUI;
+    private BoardPanel boardPanel;
     private PlayerPanel playerPanel;
 
 
@@ -57,7 +57,7 @@ public class UI_Connection_Interface {
         this.outputPanel = ui.getoOutputPanel();
 
         //BoardPanel
-        this.boardUI = ui.getBoardPanel();
+        this.boardPanel = ui.getBoardPanel();
         
         //PlayerPanel
         this.playerPanel = ui.getPlayerPanel();
@@ -78,7 +78,7 @@ public class UI_Connection_Interface {
 
         //YutEngine <==> BoardPanel
         //YutEngine이 BoardPanel을 알기만 하면 된다.
-        yutEngine.setBoardUI(boardUI);
+        yutEngine.setBoardUI(boardPanel);
 
         //PlayerPanel <==> YutEngine
         //YutEngine이 PlayerPanel을 알기만 하면 된다.
