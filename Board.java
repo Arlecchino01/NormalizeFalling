@@ -8,7 +8,7 @@ public class Board {
     List<BoardEdge> diagonalsFromCenter = new ArrayList<>();
     int indexFromCenterTo;
     Integer sideNum;
-    String boardName;
+    String boardName; //
 
     public Board(int sides) {
         origin = createTile();
