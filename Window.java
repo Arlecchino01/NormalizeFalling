@@ -8,6 +8,7 @@ public class Window {
     private OutputPanel outputPanel;
     private BoardPanel boardPanel;
     private PlayerPanel playerPanel;
+    private YutPanel yutPanel;
     
     public Window(){
         inputPanel = new InputPanel();
@@ -15,15 +16,16 @@ public class Window {
         Board nullboard = new Board(4);
         boardPanel = new BoardPanel(nullboard);
         playerPanel = new PlayerPanel();
+        yutPanel = new YutPanel();
 
-        MaineFrame a = new MaineFrame(inputPanel, outputPanel, boardPanel, playerPanel);
+        MaineFrame a = new MaineFrame(inputPanel, outputPanel, boardPanel, playerPanel, yutPanel);
     }
 
     public InputPanel getInputPanel(){
         return inputPanel;
     }
 
-    public OutputPanel getoOutputPanel(){
+    public OutputPanel getOutputPanel(){
         return outputPanel;
     }
 
@@ -44,7 +46,7 @@ class MaineFrame extends JFrame{
     private JPanel mainPanel2;
     private InputOutputSection inOutSection;
 
-    public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel, BoardPanel boardPanel, PlayerPanel playerPanel){
+    public MaineFrame(InputPanel inputPanel, OutputPanel outputPanel, BoardPanel boardPanel, PlayerPanel playerPanel, YutPanel yutPanel){
         setTitle("Testing");
         setSize(1600, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,7 +55,7 @@ class MaineFrame extends JFrame{
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
         mainPanel2 = new JPanel();
-        inOutSection = new InputOutputSection(inputPanel, outputPanel);
+        inOutSection = new InputOutputSection(inputPanel, outputPanel, yutPanel);
 
         this.gamePanel = new GamePanel(inOutSection, boardPanel, playerPanel);
 

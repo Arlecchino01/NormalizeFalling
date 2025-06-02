@@ -56,6 +56,10 @@ public class Board {
         return t;
     }
 
+    public Tile getOrigin(){
+        return this.origin;
+    }
+
     public List<BoardEdge> getEdges() {
         return edges;
     }

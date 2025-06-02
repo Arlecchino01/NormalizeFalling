@@ -54,7 +54,7 @@ public class UI_Connection_Interface {
         this.inputPanel = ui.getInputPanel();
 
         //outputPanel
-        this.outputPanel = ui.getoOutputPanel();
+        this.outputPanel = ui.getOutputPanel();
 
         //BoardPanel
         this.boardPanel = ui.getBoardPanel();
