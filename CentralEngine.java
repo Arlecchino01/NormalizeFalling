@@ -11,6 +11,8 @@ public class CentralEngine {
     public interface YutCallback {
         public void onInput(CentralEngine centralEngine);
     }
+
+    
     
     public CentralEngine(InputEngine inputEngine, OutputEngine outputEngine){
         this.inputEngine = inputEngine;

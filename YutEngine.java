@@ -1,5 +1,9 @@
 import java.util.*;
 
+import javax.swing.SwingUtilities;
+
+import YutPanel.YutPanelCallBack;
+
 public class YutEngine {
     private CentralEngine central;
 
@@ -18,6 +22,10 @@ public class YutEngine {
 
     private Board_Interface BoardUi;
     private PlayerPanel_Interface playerPanel;
+
+    private YutPanel yutPanel;
+
+    private Yut yut;
     
 
 
@@ -44,6 +52,9 @@ public class YutEngine {
             case 2:
                 central.sendStringToOutputEngine("==== 말의 수 설정 ====");
                 setPieces();
+                break;
+            case 3:
+                central.sendStringToOutputEngine("==== 게임 시작 ====");
                 break;
             case 109:
                 central.sendStringToOutputEngine("==== Entered Testing Mode ====");
@@ -74,6 +85,8 @@ public class YutEngine {
             }
         });
     }
+
+
     
     public void initializeCallback(){
         central.setYutCallBack(new CentralEngine.YutCallback() {
@@ -122,11 +135,14 @@ public class YutEngine {
             @Override
             public void onInput(CentralEngine cAdd1){
                 //생성자로 플레이어 생성 + 리스트에 플레이어 추가하는 거 구현
+                
+                
                 Player p = new Player(central.getString());
                 players.add(p);
                 playerPanel.updatePlayerPanel(players);
                 central.sendStringToOutputEngine((index + 1)+ "번 플레이어 \""+p.getName() + "\" 추가 완료.");
                 addPlayers(cAdd1, index+1, pNum);
+                
             }
         });
     }
@@ -178,6 +194,7 @@ public class YutEngine {
                         return;
                     }
                     central.sendStringToOutputEngine("말의 수: " + tempInt);
+
                     for(int i = 0; i < PlayerNum; i++){
                         Player player = players.get(i);
                         player.generatePieces(tempInt, board.getOrigin());
@@ -195,14 +212,47 @@ public class YutEngine {
                         }
                         central.sendStringToOutputEngine(player.getName() + "'s Color: " + player.returnColor());
                     }
+                    BoardUi.update();
+                    
+
                 } catch (NumberFormatException e){
                     central.sendStringToOutputEngine("정수를 입력하세요.");
                 }
-                
             }
         });
     }
 
+    public void startGame(){
+        central.sendStringToOutputEngine("게임을 시작합니다. 윷을 던지세요");
+        
+    }
+
+    public void throwYut(){
+        yut.throwYut();
+    }
+
+    public void start_Game(){
+        yutPanel.setYutCallBack(new YutPanel().YutPanelCallback() {
+            @Override
+            public void 
+        });
+
+        central.setYutCallBack(new CentralEngine.YutCallback() {
+            @Override
+            public void onInput(CentralEngine centralEngine){
+                String str1 = central.getString();
+                central.sendStringToOutputEngine(str1);
+
+                centralEngine.setYutCallBack(new CentralEngine.YutCallback() {
+                    @Override
+                    public void onInput(CentralEngine centralEngine){
+                        central.sendStringToOutputEngine("제대로 되냐...");
+                    }
+                });
+
+            }
+        });
+    }
     //================ 필요한 함수들 ================
 
     public void setCentralEngine(CentralEngine centralEngine){
@@ -223,6 +273,14 @@ public class YutEngine {
 
     public void setPlayerPanel(PlayerPanel_Interface playerPanel){
         this.playerPanel = playerPanel;
+    }
+
+    public List<Player> getPlayerList(){
+        return players;
+    }
+
+    public void setYutPanel(YutPanel yutPanel){
+        this.yutPanel = yutPanel;
     }
 
     

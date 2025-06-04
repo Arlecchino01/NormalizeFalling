@@ -46,7 +46,7 @@ public class PlayerPanel extends JPanel implements PlayerPanel_Interface{
 class PlayerCard extends JPanel{
     private String name;
     public PlayerCard(Player player){
-        setPreferredSize(new Dimension(300, 200));
+        setPreferredSize(new Dimension(300, 150));
         add(Box.createVerticalStrut(50));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.name = player.getName();

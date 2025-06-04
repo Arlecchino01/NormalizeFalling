@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 public class InputOutputSection extends JPanel {
     private InputPanel inputPanel;
@@ -40,18 +39,34 @@ public class InputOutputSection extends JPanel {
             }
         });
     }
-    
 }
 
 class YutPanel extends JPanel{
     private RandomButton randomButton;
     private CustomButton customButton;
+    private YutEngine yutEngine;
+    private YutPanelCallBack callback;
+    
+    public interface YutPanelCallBack {
+        public void onYut(YutPanel yutPanel);
+    }
+
+    public void setYutCallBack(YutPanelCallBack callback){
+        this.callback = callback;
+    }
+
+    public void setYutEngine(YutEngine yutEngine){
+        this.yutEngine = yutEngine;
+    }
 
     public YutPanel(){
         randomButton = new RandomButton();
+        randomButton.addActionListener(e -> {
+            
+        });
 
         customButton = new CustomButton();
-
+        
 
 
         setLayout(new GridBagLayout()); 

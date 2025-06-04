@@ -34,4 +34,8 @@ public class Player {
     public String returnColor(){
         return color;
     }
+
+    public List<Piece> getPieces(){
+        return pieces;
+    }
 }

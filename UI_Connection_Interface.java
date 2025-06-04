@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class UI_Connection_Interface {
     private LogicEngine logicEngine;
     private InputEngine inputEngine;
@@ -5,12 +7,14 @@ public class UI_Connection_Interface {
     private CentralEngine centralEngine;
     private YutEngine yutEngine;
     private Board board;
+    private List<Player> playerList;
 
     private Window ui;
     private InputPanel inputPanel;
     private OutputPanel outputPanel;
     private BoardPanel boardPanel;
     private PlayerPanel playerPanel;
+    private YutPanel yutPanel;
 
 
     public UI_Connection_Interface(){
@@ -40,7 +44,7 @@ public class UI_Connection_Interface {
         //this.board = yutEngine.getBoard();
 
         //PlayerInfo
-
+        this.playerList = yutEngine.getPlayerList();
         //
     }
 
@@ -62,9 +66,12 @@ public class UI_Connection_Interface {
         //PlayerPanel
         this.playerPanel = ui.getPlayerPanel();
 
+        //YutPanel
+        this.yutPanel = ui.getYutPanel();
+
     }
 
-    public void connectUI(){
+    public void connectSwingUI(){
         //inputEngine <==> inputPanel
         inputEngine.setInputHandler(inputPanel);
         inputPanel.setInputEngine(inputEngine);
@@ -83,6 +90,13 @@ public class UI_Connection_Interface {
         //PlayerPanel <==> YutEngine
         //YutEngine이 PlayerPanel을 알기만 하면 된다.
         yutEngine.setPlayerPanel(playerPanel);
+
+        //playerlist(yutengine) <==> playerlist(window)
+        boardPanel.setPlayerList(playerList);
+
+        //YutPanel
+        yutEngine.setYutPanel(yutPanel);
+        yutPanel.setYutEngine(yutEngine);
     }
  
 

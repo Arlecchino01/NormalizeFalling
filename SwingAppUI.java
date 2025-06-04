@@ -17,7 +17,7 @@ public class SwingAppUI{
         window = new Window();
         hub.setUI(window);
 
-        hub.connectUI();
+        hub.connectSwingUI();
         hub.launchYut();
     }
 }

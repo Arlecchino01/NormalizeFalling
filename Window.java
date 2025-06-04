@@ -9,6 +9,8 @@ public class Window {
     private BoardPanel boardPanel;
     private PlayerPanel playerPanel;
     private YutPanel yutPanel;
+
+    
     
     public Window(){
         inputPanel = new InputPanel();
@@ -36,6 +38,12 @@ public class Window {
     public PlayerPanel getPlayerPanel(){
         return playerPanel;
     }
+
+    public YutPanel getYutPanel(){
+        return yutPanel;
+    }
+
+    
 }
 
 class MaineFrame extends JFrame{
@@ -129,7 +137,7 @@ class BoardPanel extends JPanel implements Board_Interface{
 
     private Board board;
     private Map<Tile, Point> tilePointMap = new HashMap<>();
-    private Piece testPiece; // 테스트용 말
+    private List<Player> playerList;
 
     @Override
     public void setBoard(Board board){
@@ -137,13 +145,22 @@ class BoardPanel extends JPanel implements Board_Interface{
         this.N = board.getSideNum();
         computeTilePositions();
         Tile startTile = board.getDiagonalsFromCenter().get(1).getTiles().get(1);
-        testPiece = new Piece(startTile);
+        
         SwingUtilities.invokeLater(() -> repaint());
         //computeTilePositions(); // ← 여기서 연결 처리
+    }
+    @Override
+    public void update(){
+        SwingUtilities.invokeLater(() -> repaint());
+    }
+
+    public void setPlayerList(List<Player> playerList){
+        this.playerList = playerList;
     }
 
     public BoardPanel(Board board) {
         this.board = board;
+        this.playerList = null;
     }
 
     
@@ -155,8 +172,7 @@ class BoardPanel extends JPanel implements Board_Interface{
         computeTilePositions(); // ← 여기서 연결 처리
 
         // 테스트: 첫 번째 변의 첫 번째 타일 위에 말 생성
-        Tile startTile = board.getDiagonalsFromCenter().get(0).getTiles().get(1);
-        testPiece = new Piece(startTile);
+        
     }
 
     private void computeTilePositions() {
@@ -249,7 +265,7 @@ class BoardPanel extends JPanel implements Board_Interface{
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // 중심점
-        g2.setColor(Color.RED);
+        g2.setColor(Color.BLACK);
         g2.fillOval(CENTER_X - TILE_SIZE / 2, CENTER_Y - TILE_SIZE / 2, TILE_SIZE, TILE_SIZE);
 
         // 꼭짓점 위치 계산 및 저장
@@ -302,16 +318,37 @@ class BoardPanel extends JPanel implements Board_Interface{
         // 꼭짓점 그리기 (첫 번째는 노란색)
         for (int i = 0; i < N; i++) {
             Point p = points[i];
-            g2.setColor(i == 0 ? Color.YELLOW : Color.BLUE);
+            g2.setColor(i == 0 ? Color.MAGENTA : Color.BLUE);
             g2.fillOval(p.x - TILE_SIZE / 2, p.y - TILE_SIZE / 2, TILE_SIZE, TILE_SIZE);
         }
 
-        if (testPiece != null) {
-            Tile tile = testPiece.getCurrentTile();
-            Point p = tilePointMap.get(tile);
-            if (p != null) {
-                g2.setColor(Color.MAGENTA);
-                g2.fillOval(p.x - 8, p.y - 8, 16, 16); // 말의 위치, 크기
+
+        //============= 타일 그리기 =============
+        
+
+        //============= Piece들 그리기 =============
+        if (playerList != null){
+            for (Player player : playerList){
+                List<Piece> pieces = player.getPieces();
+                for (Piece piece : pieces){
+                    Tile tile = piece.getCurrentTile();
+                    Point p = tilePointMap.get(tile);
+                    if (p != null) {
+                        String color = player.returnColor();
+                        if(color == "Red"){
+                            g2.setColor(Color.RED);
+                        }else if(color == "Orange"){
+                            g2.setColor(Color.ORANGE);
+                        }else if(color == "Yellow"){
+                            g2.setColor(Color.YELLOW);
+                        }else if(color == "Green"){
+                            g2.setColor(Color.GREEN);
+                        }else if(color == "Blue"){
+                            g2.setColor(Color.BLUE);
+                        }
+                        g2.fillOval(p.x - 8, p.y - 8, 16, 16); // 말의 위치, 크기
+                    }
+                }
             }
         }
 
